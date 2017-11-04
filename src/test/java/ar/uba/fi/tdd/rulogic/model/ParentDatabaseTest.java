@@ -1,16 +1,19 @@
 package ar.uba.fi.tdd.rulogic.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ParentDatabaseTest {
 
+  private static final String PARENT_DATABASE_PATH = "parent.db";
+
   private KnowledgeBase knowledgeBase;
 
   @Before
   public void setUp() throws Exception {
-    knowledgeBase = new KnowledgeBase();
+    knowledgeBase = new KnowledgeBase(PARENT_DATABASE_PATH);
   }
 
   @Test
@@ -44,6 +47,25 @@ public class ParentDatabaseTest {
     assertThat(knowledgeBase.answer("hijo(pepe, hector)")).isFalse();
     assertThat(knowledgeBase.answer("hija(maria, roberto)")).isFalse();
     assertThat(knowledgeBase.answer("tia(julia, alejandro, roberto)")).isFalse();
+  }
+
+  @Test
+  public void testAnswer_InvalidQuery_ThrowsIllegalArgumentException() {
+    assertThatIllegalArgumentException().isThrownBy(() -> {
+      knowledgeBase.answer("varon");
+    }).withMessageContaining("Invalid query");
+
+    assertThatIllegalArgumentException().isThrownBy(() -> {
+      knowledgeBase.answer("varon()");
+    }).withMessageContaining("Invalid query");
+
+    assertThatIllegalArgumentException().isThrownBy(() -> {
+      knowledgeBase.answer("varon(juan).");
+    }).withMessageContaining("Invalid query");
+
+    assertThatIllegalArgumentException().isThrownBy(() -> {
+      knowledgeBase.answer("padre(juan,)");
+    }).withMessageContaining("Invalid query");
   }
 
 }

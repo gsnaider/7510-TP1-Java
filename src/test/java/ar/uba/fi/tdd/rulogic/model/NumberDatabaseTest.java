@@ -1,16 +1,19 @@
 package ar.uba.fi.tdd.rulogic.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import org.junit.Before;
 import org.junit.Test;
 
 public class NumberDatabaseTest {
 
+  private static final String NUMBER_DATABASE_PATH = "number.db";
+
   private KnowledgeBase knowledgeBase;
 
   @Before
   public void setUp() throws Exception {
-    knowledgeBase = new KnowledgeBase();
+    knowledgeBase = new KnowledgeBase(NUMBER_DATABASE_PATH);
   }
 
   @Test
@@ -31,6 +34,25 @@ public class NumberDatabaseTest {
   @Test
   public void testAnswer_NonPresentRule_ReturnsFalse() {
     assertThat(knowledgeBase.answer("subtract(one, one, two)")).isFalse();
+  }
+
+  @Test
+  public void testAnswer_InvalidQuery_ThrowsIllegalArgumentException() {
+    assertThatIllegalArgumentException().isThrownBy(() -> {
+      knowledgeBase.answer("add");
+    }).withMessageContaining("Invalid query");
+
+    assertThatIllegalArgumentException().isThrownBy(() -> {
+      knowledgeBase.answer("add()");
+    }).withMessageContaining("Invalid query");
+
+    assertThatIllegalArgumentException().isThrownBy(() -> {
+      knowledgeBase.answer("subtract(one,two,three).");
+    }).withMessageContaining("Invalid query");
+
+    assertThatIllegalArgumentException().isThrownBy(() -> {
+      knowledgeBase.answer("add(one,two,)");
+    }).withMessageContaining("Invalid query");
   }
 
 }
