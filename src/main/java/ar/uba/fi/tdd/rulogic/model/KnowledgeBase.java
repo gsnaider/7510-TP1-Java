@@ -5,6 +5,7 @@ package ar.uba.fi.tdd.rulogic.model;
  */
 public class KnowledgeBase {
 
+  // TODO: Add documentation about valid database format.
   /**
    * Creates a new KnowledgeBase with the database from {@code databasePath}.
    *
