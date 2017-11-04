@@ -1,4 +1,4 @@
-package ar.uba.fi.tdd.rulogic.model;
+package ar.uba.fi.tdd.rulogic.database;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import org.junit.Test;
