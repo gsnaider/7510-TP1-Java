@@ -1,8 +1,8 @@
 package ar.uba.fi.tdd.rulogic.database;
 
-import org.junit.Rule;
 import com.google.common.collect.ImmutableSet;
 import ar.uba.fi.tdd.rulogic.model.Fact;
+import ar.uba.fi.tdd.rulogic.model.Rule;
 import ar.uba.fi.tdd.rulogic.model.Statement;
 
 public class Database {
