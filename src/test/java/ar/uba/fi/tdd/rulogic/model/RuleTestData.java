@@ -13,11 +13,12 @@ public final class RuleTestData {
   public static final String INVALID_RULE_STRING = "hijo(X) :- varon(Y).";
 
   private static Rule rule() {
-    String ruleName = "hijo";
-    ImmutableList<String> ruleParams = ImmutableList.of("X", "Y");
-    ImmutableSet<Statement> ruleStatements =
-        ImmutableSet.of(FactTestData.FACT_1, FactTestData.FACT_2);
-    return new Rule(ruleName, ruleParams, ruleStatements);
+    String name = "hijo";
+    ImmutableList<String> parameters = ImmutableList.of("X", "Y");
+    ImmutableSet<Statement> statements = ImmutableSet.of(
+        Fact.builder().name("varon").parameters(ImmutableList.of("X")).build(),
+        Fact.builder().name("padre").parameters(ImmutableList.of("Y", "X")).build());
+    return Rule.builder().name(name).parameters(parameters).statements(statements).build();
   }
 
 }

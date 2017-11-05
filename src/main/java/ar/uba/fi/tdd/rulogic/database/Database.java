@@ -6,23 +6,49 @@ import ar.uba.fi.tdd.rulogic.model.Fact;
 import ar.uba.fi.tdd.rulogic.model.Rule;
 import ar.uba.fi.tdd.rulogic.model.Statement;
 
-public class Database {
+public final class Database {
 
   private final ImmutableSet<Fact> facts;
   private final ImmutableMap<String, Rule> rules;
 
-  public Database(ImmutableSet<Fact> facts, ImmutableSet<Rule> rules) {
-    this.facts = facts;
+  private Database(Builder builder) {
+    if (builder.facts == null || builder.rules == null) {
+      throw new NullPointerException();
+    }
+    this.facts = builder.facts;
     ImmutableMap.Builder<String, Rule> rulesMapBuilder = ImmutableMap.builder();
-    for (Rule rule : rules) {
+    for (Rule rule : builder.rules) {
       rulesMapBuilder.put(rule.getName(), rule);
     }
     this.rules = rulesMapBuilder.build();
   }
 
   public boolean contains(Statement statement) {
-    // TODO
+    // TODO implement.
     return false;
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static class Builder {
+    private ImmutableSet<Fact> facts;
+    private ImmutableSet<Rule> rules;
+
+    public Database build() {
+      return new Database(this);
+    }
+
+    public Builder facts(ImmutableSet<Fact> facts) {
+      this.facts = facts;
+      return this;
+    }
+
+    public Builder rules(ImmutableSet<Rule> rules) {
+      this.rules = rules;
+      return this;
+    }
   }
 
   @Override

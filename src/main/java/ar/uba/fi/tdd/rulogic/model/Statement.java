@@ -11,6 +11,9 @@ public abstract class Statement {
   private final ImmutableList<String> parameters;
 
   public Statement(String name, ImmutableList<String> parameters) {
+    if (name == null || parameters == null) {
+      throw new NullPointerException();
+    }
     this.name = name;
     this.parameters = parameters;
   }

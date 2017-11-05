@@ -2,10 +2,34 @@ package ar.uba.fi.tdd.rulogic.model;
 
 import com.google.common.collect.ImmutableList;
 
-public class Query extends Statement {
+public final class Query extends Statement {
 
-  public Query(String name, ImmutableList<String> parameters) {
-    super(name, parameters);
+  private Query(Builder builder) {
+    super(builder.name, builder.parameters);
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static class Builder {
+    private String name;
+    private ImmutableList<String> parameters;
+
+    public Query build() {
+      return new Query(this);
+    }
+
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    public Builder parameters(ImmutableList<String> parameters) {
+      this.parameters = parameters;
+      return this;
+    }
+
   }
 
 }
