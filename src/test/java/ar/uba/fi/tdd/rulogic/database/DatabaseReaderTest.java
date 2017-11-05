@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
+import java.io.FileNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -34,13 +35,13 @@ public class DatabaseReaderTest {
   }
 
   @Test
-  public void testReadDatabase_EmptyDatabase_ReturnsEmptyDatabase() {
+  public void testReadDatabase_EmptyDatabase_ReturnsEmptyDatabase() throws FileNotFoundException {
     Database database = databaseReader.readDatabase(DatabaseTestData.EMPTY_DATABASE_PATH);
     assertThat(database).isEqualTo(DatabaseTestData.EMPTY_DATABASE);
   }
 
   @Test
-  public void testReadDatabase_ValidDatabase_ReturnsDatabase() {
+  public void testReadDatabase_ValidDatabase_ReturnsDatabase() throws FileNotFoundException {
     Database database = databaseReader.readDatabase(DatabaseTestData.SMALL_DATABASE_PATH);
     assertThat(database).isEqualTo(DatabaseTestData.SMALL_DATABASE);
   }

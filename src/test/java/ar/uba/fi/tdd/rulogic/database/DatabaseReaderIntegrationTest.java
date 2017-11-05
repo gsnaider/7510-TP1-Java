@@ -2,6 +2,7 @@ package ar.uba.fi.tdd.rulogic.database;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import java.io.FileNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import ar.uba.fi.tdd.rulogic.model.DatabaseTestData;
@@ -20,13 +21,13 @@ public class DatabaseReaderIntegrationTest {
   }
 
   @Test
-  public void testReadDatabase_EmptyDatabase_ReturnsEmptyDatabase() {
+  public void testReadDatabase_EmptyDatabase_ReturnsEmptyDatabase() throws FileNotFoundException {
     Database emptyDatabase = databaseReader.readDatabase(DatabaseTestData.EMPTY_DATABASE_PATH);
     assertThat(emptyDatabase).isEqualTo(DatabaseTestData.EMPTY_DATABASE);
   }
 
   @Test
-  public void testReadDatabase_ValidDatabase_ReturnsParsedDatabase() {
+  public void testReadDatabase_ValidDatabase_ReturnsParsedDatabase() throws FileNotFoundException {
     Database database = databaseReader.readDatabase(DatabaseTestData.SMALL_DATABASE_PATH);
     assertThat(database).isEqualTo(DatabaseTestData.SMALL_DATABASE);
   }
