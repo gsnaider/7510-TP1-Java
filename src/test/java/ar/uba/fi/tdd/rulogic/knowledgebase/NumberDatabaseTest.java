@@ -6,7 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import ar.uba.fi.tdd.rulogic.database.DatabaseReader;
 import ar.uba.fi.tdd.rulogic.knowledgebase.KnowledgeBase;
+import ar.uba.fi.tdd.rulogic.parser.FactParser;
 import ar.uba.fi.tdd.rulogic.parser.QueryParser;
+import ar.uba.fi.tdd.rulogic.parser.RuleParser;
 
 public class NumberDatabaseTest {
 
@@ -16,7 +18,7 @@ public class NumberDatabaseTest {
 
   @Before
   public void setUp() throws Exception {
-    DatabaseReader databaseReader = new DatabaseReader();
+    DatabaseReader databaseReader = new DatabaseReader(new FactParser(), new RuleParser());
     knowledgeBase =
         new KnowledgeBase(databaseReader.readDatabase(NUMBER_DATABASE_PATH), new QueryParser());
   }
