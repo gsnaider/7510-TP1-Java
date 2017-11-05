@@ -19,6 +19,10 @@ public abstract class Statement {
     this.parameters = parameters;
   }
 
+  public void addToDatabase(DatabaseImpl.Builder databaseBuilder) {
+    databaseBuilder.addStatement(this);
+  }
+
   public String getName() {
     return name;
   }

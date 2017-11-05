@@ -16,6 +16,11 @@ public final class Rule extends Statement {
     this.statements = builder.statements;
   }
 
+  @Override
+  public void addToDatabase(DatabaseImpl.Builder databaseBuilder) {
+    databaseBuilder.addStatement(this);
+  }
+
   public ImmutableSet<Statement> getStatements() {
     return statements;
   }

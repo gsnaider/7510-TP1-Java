@@ -12,8 +12,7 @@ import ar.uba.fi.tdd.rulogic.knowledgebase.IllegalDatabaseFormatException;
 import ar.uba.fi.tdd.rulogic.model.DatabaseTestData;
 import ar.uba.fi.tdd.rulogic.model.FactTestData;
 import ar.uba.fi.tdd.rulogic.model.RuleTestData;
-import ar.uba.fi.tdd.rulogic.parser.FactParserImpl;
-import ar.uba.fi.tdd.rulogic.parser.RuleParserImpl;
+import ar.uba.fi.tdd.rulogic.parser.StatementParserImpl;
 
 public class DatabaseReaderIntegrationTest {
 
@@ -21,7 +20,7 @@ public class DatabaseReaderIntegrationTest {
 
   @Before
   public void setUp() {
-    databaseReader = new DatabaseReaderImpl(new FactParserImpl(), new RuleParserImpl());
+    databaseReader = new DatabaseReaderImpl(new StatementParserImpl());
   }
 
   @Test

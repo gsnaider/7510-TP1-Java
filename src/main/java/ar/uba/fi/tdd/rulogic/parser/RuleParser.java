@@ -1,4 +1,4 @@
-package ar.uba.fi.tdd.rulogic.databasereader;
+package ar.uba.fi.tdd.rulogic.parser;
 
 import ar.uba.fi.tdd.rulogic.model.Rule;
 

@@ -11,12 +11,10 @@ import ar.uba.fi.tdd.rulogic.model.Statement;
 
 public class DatabaseReaderImpl implements DatabaseReader {
 
-  private final FactParser factParser;
-  private final RuleParser ruleParser;
+  private final StatementParser statementParser;
 
-  public DatabaseReaderImpl(FactParser factParser, RuleParser ruleParser) {
-    this.factParser = factParser;
-    this.ruleParser = ruleParser;
+  public DatabaseReaderImpl(StatementParser statementParser) {
+    this.statementParser = statementParser;
   }
 
   @Override
@@ -27,16 +25,11 @@ public class DatabaseReaderImpl implements DatabaseReader {
     try (Scanner scanner = new Scanner(file)) {
       while (scanner.hasNextLine()) {
         String line = scanner.nextLine();
-        Statement statement = parseLine(line);
-        databaseBuilder.addStatement(statement);
+        Statement statement = statementParser.parseStatement(line);
+        statement.addToDatabase(databaseBuilder);
       }
     }
     return databaseBuilder.build();
-  }
-
-  private Statement parseLine(String line) {
-    // TODO
-    return null;
   }
 
 }

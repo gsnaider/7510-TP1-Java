@@ -58,6 +58,7 @@ public final class DatabaseImpl implements Database {
     }
 
     public Builder addStatement(Rule rule) {
+      statements.add(rule);
       rules.add(rule);
       return this;
     }

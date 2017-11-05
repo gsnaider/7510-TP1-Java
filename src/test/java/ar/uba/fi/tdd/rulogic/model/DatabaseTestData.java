@@ -14,7 +14,7 @@ public final class DatabaseTestData {
   public static final String SMALL_DATABASE_PATH = "small.db";
   public static final Database SMALL_DATABASE = DatabaseImpl
       .builder()
-      .statements(ImmutableSet.of(FactTestData.FACT_1, FactTestData.FACT_2))
+      .statements(ImmutableSet.of(FactTestData.FACT_1, FactTestData.FACT_2, RuleTestData.RULE))
       .rules(ImmutableSet.of(RuleTestData.RULE))
       .build();
 
