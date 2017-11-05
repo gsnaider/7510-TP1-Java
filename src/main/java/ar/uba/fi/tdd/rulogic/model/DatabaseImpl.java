@@ -25,7 +25,7 @@ public final class DatabaseImpl implements Database {
   }
 
   @Override
-  public boolean contains(Statement statement) {
+  public boolean contains(Query query) {
     // TODO implement.
     return false;
   }

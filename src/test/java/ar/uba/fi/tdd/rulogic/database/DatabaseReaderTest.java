@@ -3,7 +3,6 @@ package ar.uba.fi.tdd.rulogic.database;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.when;
-import java.io.FileNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -36,37 +35,35 @@ public class DatabaseReaderTest {
   }
 
   @Test
-  public void testReadDatabase_EmptyDatabase_ReturnsEmptyDatabase() throws FileNotFoundException {
+  public void testReadDatabase_EmptyDatabase_ReturnsEmptyDatabase() throws Exception {
     Database database = databaseReader.readDatabase(DatabaseTestData.EMPTY_DATABASE_PATH);
     assertThat(database).isEqualTo(DatabaseTestData.EMPTY_DATABASE);
   }
 
   @Test
-  public void testReadDatabase_ValidDatabase_ReturnsDatabase() throws FileNotFoundException {
+  public void testReadDatabase_ValidDatabase_ReturnsDatabase() throws Exception {
     Database database = databaseReader.readDatabase(DatabaseTestData.SMALL_DATABASE_PATH);
     assertThat(database).isEqualTo(DatabaseTestData.SMALL_DATABASE);
   }
 
   @Test
   public void testReadDatabase_DatabaseWithInvalidRule_ThrowsIllegalDatabaseFormatException() {
-    String errorMessage = "Error parsing database. Invalid rule hijo(X) :- varon(Y)";
     when(statementParser.parseStatement(RuleTestData.RULE_STRING))
-        .thenThrow(new IllegalArgumentException(errorMessage));
+        .thenThrow(new IllegalArgumentException("Invalid rule hijo(X) :- varon(Y)"));
 
     assertThatExceptionOfType(IllegalDatabaseFormatException.class).isThrownBy(() -> {
       databaseReader.readDatabase(DatabaseTestData.SMALL_DATABASE_PATH);
-    }).withMessage(errorMessage);
+    }).withMessage("Error parsing database: Invalid rule hijo(X) :- varon(Y)");
   }
 
   @Test
   public void testReadDatabase_DatabaseWithInvalidFact_ThrowsIllegalDatabaseFormatException() {
-    String errorMessage = "Error parsing database. Invalid fact varon";
     when(statementParser.parseStatement(FactTestData.FACT_1_STRING))
-        .thenThrow(new IllegalArgumentException(errorMessage));
+        .thenThrow(new IllegalArgumentException("Invalid fact varon"));
 
     assertThatExceptionOfType(IllegalDatabaseFormatException.class).isThrownBy(() -> {
       databaseReader.readDatabase(DatabaseTestData.SMALL_DATABASE_PATH);
-    }).withMessage(errorMessage);
+    }).withMessage("Error parsing database: Invalid fact varon");
   }
 
 }

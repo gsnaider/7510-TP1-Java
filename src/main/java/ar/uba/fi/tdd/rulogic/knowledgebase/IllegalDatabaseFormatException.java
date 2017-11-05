@@ -5,6 +5,10 @@ package ar.uba.fi.tdd.rulogic.knowledgebase;
  */
 public class IllegalDatabaseFormatException extends Exception {
 
+  public IllegalDatabaseFormatException(String message, Throwable cause) {
+    super(message, cause);
+  }
+
   private static final long serialVersionUID = 1L;
 
 }
