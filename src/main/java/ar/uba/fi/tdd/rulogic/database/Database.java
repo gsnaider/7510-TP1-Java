@@ -1,21 +1,22 @@
 package ar.uba.fi.tdd.rulogic.database;
 
+import java.util.HashSet;
+import java.util.Set;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import ar.uba.fi.tdd.rulogic.model.Fact;
 import ar.uba.fi.tdd.rulogic.model.Rule;
 import ar.uba.fi.tdd.rulogic.model.Statement;
 
 public final class Database {
 
-  private final ImmutableSet<Fact> facts;
+  private final ImmutableSet<Statement> statements;
   private final ImmutableMap<String, Rule> rules;
 
   private Database(Builder builder) {
-    if (builder.facts == null || builder.rules == null) {
+    if (builder.statements == null || builder.rules == null) {
       throw new NullPointerException();
     }
-    this.facts = builder.facts;
+    this.statements = ImmutableSet.copyOf(builder.statements);
     ImmutableMap.Builder<String, Rule> rulesMapBuilder = ImmutableMap.builder();
     for (Rule rule : builder.rules) {
       rulesMapBuilder.put(rule.getName(), rule);
@@ -33,20 +34,30 @@ public final class Database {
   }
 
   public static class Builder {
-    private ImmutableSet<Fact> facts;
-    private ImmutableSet<Rule> rules;
+    private Set<Statement> statements = new HashSet<>();
+    private Set<Rule> rules = new HashSet<>();
 
     public Database build() {
       return new Database(this);
     }
 
-    public Builder facts(ImmutableSet<Fact> facts) {
-      this.facts = facts;
+    public Builder statements(Set<Statement> statements) {
+      this.statements = statements;
       return this;
     }
 
-    public Builder rules(ImmutableSet<Rule> rules) {
+    public Builder rules(Set<Rule> rules) {
       this.rules = rules;
+      return this;
+    }
+
+    public Builder addStatement(Statement statement) {
+      statements.add(statement);
+      return this;
+    }
+
+    public Builder addStatement(Rule rule) {
+      rules.add(rule);
       return this;
     }
   }
@@ -55,7 +66,7 @@ public final class Database {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((facts == null) ? 0 : facts.hashCode());
+    result = prime * result + ((statements == null) ? 0 : statements.hashCode());
     result = prime * result + ((rules == null) ? 0 : rules.hashCode());
     return result;
   }
@@ -69,10 +80,10 @@ public final class Database {
     if (getClass() != obj.getClass())
       return false;
     Database other = (Database) obj;
-    if (facts == null) {
-      if (other.facts != null)
+    if (statements == null) {
+      if (other.statements != null)
         return false;
-    } else if (!facts.equals(other.facts))
+    } else if (!statements.equals(other.statements))
       return false;
     if (rules == null) {
       if (other.rules != null)
