@@ -1,4 +1,4 @@
-package ar.uba.fi.tdd.rulogic.database;
+package ar.uba.fi.tdd.rulogic.knowledgebase;
 
 /**
  * Thrown to indicate that a database has an illegal format.

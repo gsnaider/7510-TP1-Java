@@ -9,11 +9,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import ar.uba.fi.tdd.rulogic.databasereader.DatabaseReaderImpl;
+import ar.uba.fi.tdd.rulogic.databasereader.FactParser;
+import ar.uba.fi.tdd.rulogic.databasereader.RuleParser;
+import ar.uba.fi.tdd.rulogic.knowledgebase.Database;
+import ar.uba.fi.tdd.rulogic.knowledgebase.DatabaseReader;
+import ar.uba.fi.tdd.rulogic.knowledgebase.IllegalDatabaseFormatException;
 import ar.uba.fi.tdd.rulogic.model.DatabaseTestData;
 import ar.uba.fi.tdd.rulogic.model.FactTestData;
 import ar.uba.fi.tdd.rulogic.model.RuleTestData;
-import ar.uba.fi.tdd.rulogic.parser.FactParser;
-import ar.uba.fi.tdd.rulogic.parser.RuleParser;
 
 public class DatabaseReaderTest {
 
@@ -28,7 +32,7 @@ public class DatabaseReaderTest {
   @Before
   public void setUp() {
     MockitoAnnotations.initMocks(this);
-    databaseReader = new DatabaseReader(factParser, ruleParser);
+    databaseReader = new DatabaseReaderImpl(factParser, ruleParser);
     when(factParser.parseFact(FactTestData.FACT_1_STRING)).thenReturn(FactTestData.FACT_1);
     when(factParser.parseFact(FactTestData.FACT_2_STRING)).thenReturn(FactTestData.FACT_2);
     when(ruleParser.parseRule(RuleTestData.RULE_STRING)).thenReturn(RuleTestData.RULE);

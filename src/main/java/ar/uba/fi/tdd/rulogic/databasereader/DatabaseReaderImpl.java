@@ -1,25 +1,27 @@
-package ar.uba.fi.tdd.rulogic.database;
+package ar.uba.fi.tdd.rulogic.databasereader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import com.google.common.io.Resources;
+import ar.uba.fi.tdd.rulogic.knowledgebase.Database;
+import ar.uba.fi.tdd.rulogic.knowledgebase.DatabaseReader;
+import ar.uba.fi.tdd.rulogic.model.DatabaseImpl;
 import ar.uba.fi.tdd.rulogic.model.Statement;
-import ar.uba.fi.tdd.rulogic.parser.FactParser;
-import ar.uba.fi.tdd.rulogic.parser.RuleParser;
 
-public class DatabaseReader {
+public class DatabaseReaderImpl implements DatabaseReader {
 
   private final FactParser factParser;
   private final RuleParser ruleParser;
 
-  public DatabaseReader(FactParser factParser, RuleParser ruleParser) {
+  public DatabaseReaderImpl(FactParser factParser, RuleParser ruleParser) {
     this.factParser = factParser;
     this.ruleParser = ruleParser;
   }
 
+  @Override
   public Database readDatabase(String databasePath) throws FileNotFoundException {
-    Database.Builder databaseBuilder = Database.builder();
+    DatabaseImpl.Builder databaseBuilder = DatabaseImpl.builder();
 
     File file = new File(Resources.getResource(databasePath).getFile());
     try (Scanner scanner = new Scanner(file)) {

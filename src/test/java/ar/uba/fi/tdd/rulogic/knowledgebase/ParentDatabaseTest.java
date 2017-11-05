@@ -4,10 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import org.junit.Before;
 import org.junit.Test;
-import ar.uba.fi.tdd.rulogic.database.DatabaseReader;
-import ar.uba.fi.tdd.rulogic.parser.FactParser;
-import ar.uba.fi.tdd.rulogic.parser.QueryParser;
-import ar.uba.fi.tdd.rulogic.parser.RuleParser;
+import ar.uba.fi.tdd.rulogic.databasereader.DatabaseReaderImpl;
+import ar.uba.fi.tdd.rulogic.parser.FactParserImpl;
+import ar.uba.fi.tdd.rulogic.parser.QueryParserImpl;
+import ar.uba.fi.tdd.rulogic.parser.RuleParserImpl;
 
 public class ParentDatabaseTest {
 
@@ -17,9 +17,9 @@ public class ParentDatabaseTest {
 
   @Before
   public void setUp() throws Exception {
-    DatabaseReader databaseReader = new DatabaseReader(new FactParser(), new RuleParser());
+    DatabaseReader databaseReader = new DatabaseReaderImpl(new FactParserImpl(), new RuleParserImpl());
     knowledgeBase =
-        new KnowledgeBase(databaseReader.readDatabase(PARENT_DATABASE_PATH), new QueryParser());
+        new KnowledgeBase(databaseReader.readDatabase(PARENT_DATABASE_PATH), new QueryParserImpl());
   }
 
   @Test

@@ -1,32 +1,20 @@
 package ar.uba.fi.tdd.rulogic.knowledgebase;
 
-import ar.uba.fi.tdd.rulogic.database.Database;
-import ar.uba.fi.tdd.rulogic.database.IllegalDatabaseFormatException;
 import ar.uba.fi.tdd.rulogic.model.Statement;
-import ar.uba.fi.tdd.rulogic.parser.QueryParser;
 
 /**
- * Class for running queries on a {@link Statement} database.
+ * Class for running queries on a {@link Database}.
  */
 public class KnowledgeBase {
 
   private final Database database;
   private final QueryParser queryParser;
 
-  // TODO: Add documentation about valid database format.
-  /**
-   * Creates a new KnowledgeBase with a database from {@code databasePath}.
-   *
-   * @throws IllegalDatabaseFormatException if the database within {@code databasePath} has an
-   *         illegal format.
-   */
   public KnowledgeBase(Database database, QueryParser queryParser)
       throws IllegalDatabaseFormatException {
     this.database = database;
     this.queryParser = queryParser;
   }
-
-
 
   /**
    * Returns {@code true} if the {@link Statement} represented by {@code query} is present within

@@ -1,18 +1,17 @@
-package ar.uba.fi.tdd.rulogic.database;
+package ar.uba.fi.tdd.rulogic.model;
 
 import java.util.HashSet;
 import java.util.Set;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import ar.uba.fi.tdd.rulogic.model.Rule;
-import ar.uba.fi.tdd.rulogic.model.Statement;
+import ar.uba.fi.tdd.rulogic.knowledgebase.Database;
 
-public final class Database {
+public final class DatabaseImpl implements Database {
 
   private final ImmutableSet<Statement> statements;
   private final ImmutableMap<String, Rule> rules;
 
-  private Database(Builder builder) {
+  private DatabaseImpl(Builder builder) {
     if (builder.statements == null || builder.rules == null) {
       throw new NullPointerException();
     }
@@ -24,6 +23,10 @@ public final class Database {
     this.rules = rulesMapBuilder.build();
   }
 
+  /* (non-Javadoc)
+   * @see ar.uba.fi.tdd.rulogic.database.Database#contains(ar.uba.fi.tdd.rulogic.model.Statement)
+   */
+  @Override
   public boolean contains(Statement statement) {
     // TODO implement.
     return false;
@@ -37,8 +40,8 @@ public final class Database {
     private Set<Statement> statements = new HashSet<>();
     private Set<Rule> rules = new HashSet<>();
 
-    public Database build() {
-      return new Database(this);
+    public DatabaseImpl build() {
+      return new DatabaseImpl(this);
     }
 
     public Builder statements(Set<Statement> statements) {
@@ -79,7 +82,7 @@ public final class Database {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Database other = (Database) obj;
+    DatabaseImpl other = (DatabaseImpl) obj;
     if (statements == null) {
       if (other.statements != null)
         return false;
