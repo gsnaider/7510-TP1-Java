@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import com.google.gson.GsonBuilder;
 import ar.uba.fi.tdd.rulogic.knowledgebase.Database;
 
 public final class DatabaseImpl implements Database {
@@ -23,9 +24,6 @@ public final class DatabaseImpl implements Database {
     this.rules = rulesMapBuilder.build();
   }
 
-  /* (non-Javadoc)
-   * @see ar.uba.fi.tdd.rulogic.database.Database#contains(ar.uba.fi.tdd.rulogic.model.Statement)
-   */
   @Override
   public boolean contains(Statement statement) {
     // TODO implement.
@@ -94,6 +92,11 @@ public final class DatabaseImpl implements Database {
     } else if (!rules.equals(other.rules))
       return false;
     return true;
+  }
+
+  @Override
+  public String toString() {
+    return new GsonBuilder().setPrettyPrinting().create().toJson(this);
   }
 
 }

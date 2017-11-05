@@ -2,6 +2,7 @@ package ar.uba.fi.tdd.rulogic.model;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.gson.GsonBuilder;
 
 public final class Rule extends Statement {
 
@@ -71,6 +72,11 @@ public final class Rule extends Statement {
     } else if (!statements.equals(other.statements))
       return false;
     return true;
+  }
+
+  @Override
+  public String toString() {
+    return new GsonBuilder().setPrettyPrinting().create().toJson(this);
   }
 
 }

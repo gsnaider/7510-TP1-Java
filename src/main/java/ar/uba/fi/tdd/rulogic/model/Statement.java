@@ -1,6 +1,7 @@
 package ar.uba.fi.tdd.rulogic.model;
 
 import com.google.common.collect.ImmutableList;
+import com.google.gson.GsonBuilder;
 
 /**
  * Entity represented by a name and one or more parameters.
@@ -55,6 +56,11 @@ public abstract class Statement {
     } else if (!parameters.equals(other.parameters))
       return false;
     return true;
+  }
+
+  @Override
+  public String toString() {
+    return new GsonBuilder().setPrettyPrinting().create().toJson(this);
   }
 
 }

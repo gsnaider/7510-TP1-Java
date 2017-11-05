@@ -1,6 +1,7 @@
 package ar.uba.fi.tdd.rulogic.model;
 
 import com.google.common.collect.ImmutableList;
+import com.google.gson.GsonBuilder;
 
 public final class Fact extends Statement {
 
@@ -30,6 +31,11 @@ public final class Fact extends Statement {
       return this;
     }
 
+  }
+
+  @Override
+  public String toString() {
+    return new GsonBuilder().setPrettyPrinting().create().toJson(this);
   }
 
 }
