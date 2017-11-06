@@ -13,8 +13,14 @@ public class QueryParserImpl implements QueryParser {
 
   @Override
   public Query parseQuery(String query) {
-    // TODO
-    return null;
+    if (!queryValidator.isValid(query)) {
+      throw new IllegalArgumentException(String.format("Invalid query: %s", query));
+    }
+    return Query
+        .builder()
+        .name(ParserUtil.parseName(query))
+        .parameters(ParserUtil.parseParameters(query))
+        .build();
   }
 
 }
