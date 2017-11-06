@@ -17,12 +17,4 @@ public final class FactTestData {
 
   public static final String INVALID_FACT_STRING = "varon.";
 
-  public static final ImmutableList<String> INVALID_FACTS = ImmutableList.of(
-      "varon",
-      "varon.",
-      "varon().",
-      "varon(juan)",
-      "varon(juan,).",
-      "varon(juan.",
-      "(juan).");
 }
