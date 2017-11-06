@@ -3,6 +3,7 @@ package ar.uba.fi.tdd.rulogic.model;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 import ar.uba.fi.tdd.rulogic.knowledgebase.Database;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class DatabaseTest {
 
@@ -27,6 +28,11 @@ public class DatabaseTest {
     assertThat(database.contains(QueryTestData.NON_PRESENT_QUERY_1)).isFalse();
     assertThat(database.contains(QueryTestData.NON_PRESENT_QUERY_2)).isFalse();
     assertThat(database.contains(QueryTestData.NON_PRESENT_QUERY_3)).isFalse();
+  }
+
+  @Test
+  public void testEqualsAndHashCode() {
+    EqualsVerifier.forClass(DatabaseImpl.class).verify();
   }
 
 }
