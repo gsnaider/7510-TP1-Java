@@ -4,8 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import org.junit.Before;
 import org.junit.Test;
-import ar.uba.fi.tdd.rulogic.databasereader.DatabaseReaderImpl;
-import ar.uba.fi.tdd.rulogic.databasereader.StatementParser;
 import ar.uba.fi.tdd.rulogic.knowledgebase.Database;
 import ar.uba.fi.tdd.rulogic.knowledgebase.DatabaseReader;
 import ar.uba.fi.tdd.rulogic.knowledgebase.IllegalDatabaseFormatException;
