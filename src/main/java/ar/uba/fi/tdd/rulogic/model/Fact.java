@@ -3,9 +3,9 @@ package ar.uba.fi.tdd.rulogic.model;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.GsonBuilder;
 
-public final class Query extends Statement {
+public final class Fact extends Statement {
 
-  private Query(Builder builder) {
+  private Fact(Builder builder) {
     super(builder.name, builder.parameters);
   }
 
@@ -17,8 +17,8 @@ public final class Query extends Statement {
     private String name;
     private ImmutableList<String> parameters;
 
-    public Query build() {
-      return new Query(this);
+    public Fact build() {
+      return new Fact(this);
     }
 
     public Builder name(String name) {
@@ -30,6 +30,7 @@ public final class Query extends Statement {
       this.parameters = parameters;
       return this;
     }
+
   }
 
   @Override
