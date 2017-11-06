@@ -7,38 +7,52 @@ import ar.uba.fi.tdd.rulogic.model.Fact;
 
 public class FactParserImpl implements FactParser {
 
+  private final Validator<String> factValidator;
+
+  public FactParserImpl(Validator<String> factValidator) {
+    this.factValidator = factValidator;
+  }
+
   private static final String NAME_REGEX = "^\\w+";
-  private static final String PARAMETERS_REGEX = "\\(\\w+(,\\w+)*\\)";
-  private static final String FACT_REGEX =
-      "(" + NAME_REGEX + ")" + "(" + PARAMETERS_REGEX + ")" + ".";
+  private static final String PARAMETERS_REGEX = "\\([^\\)]*\\)";
 
   @Override
   public Fact parseFact(String fact) {
-    String factWithoutWhitespace = fact.replaceAll("\\s", "");
-
-    Pattern pattern = Pattern.compile(FACT_REGEX);
-    Matcher matcher = pattern.matcher(factWithoutWhitespace);
-    if (!matcher.matches()) {
-      throw new IllegalArgumentException(String.format("Invalid fact: %s", fact));
+    if (!factValidator.isValid(fact)) {
+      throwInvalidFactException(fact);
     }
-    return Fact
-        .builder()
-        .name(parseName(factWithoutWhitespace, matcher))
-        .parameters(parseParameters(factWithoutWhitespace, matcher))
-        .build();
+    return Fact.builder().name(parseName(fact)).parameters(parseParameters(fact)).build();
   }
 
-  private String parseName(String fact, Matcher matcher) {
-    return matcher.group(1);
+  private static String parseName(String fact) {
+    Pattern namePattern = Pattern.compile(NAME_REGEX);
+    Matcher matcher = namePattern.matcher(fact.trim());
+    // We have to call matcher.find() in order to be able to use the matcher.group method
+    // afterwards, even tough we have already validated the Fact.
+    if (!matcher.find()) {
+      throwInvalidFactException(fact);
+    }
+    return matcher.group();
   }
 
-  private ImmutableList<String> parseParameters(String fact, Matcher matcher) {
-    String[] parametersArray = matcher.group(2).replace("(", "").replace(")", "").split(",");
+  private static ImmutableList<String> parseParameters(String fact) {
+    Pattern parametersPattern = Pattern.compile(PARAMETERS_REGEX);
+    Matcher matcher = parametersPattern.matcher(fact.trim());
+    // We have to call matcher.find() in order to be able to use the matcher.group method
+    // afterwards, even tough we have already validated the Fact.
+    if (!matcher.find()) {
+      throwInvalidFactException(fact);
+    }
+    String[] parametersArray = matcher.group().replace("(", "").replace(")", "").split(",");
     ImmutableList.Builder<String> parametersListBuilder = ImmutableList.builder();
     for (String parameter : parametersArray) {
       parametersListBuilder.add(parameter.trim());
     }
     return parametersListBuilder.build();
+  }
+
+  private static void throwInvalidFactException(String fact) {
+    throw new IllegalArgumentException(String.format("Invalid fact: %s", fact));
   }
 
 }

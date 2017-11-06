@@ -1,7 +1,7 @@
 package ar.uba.fi.tdd.rulogic.parser;
 
-public interface Validator {
+public interface Validator<T> {
 
-  boolean isValid(String s);
+  boolean isValid(T t);
 
 }
