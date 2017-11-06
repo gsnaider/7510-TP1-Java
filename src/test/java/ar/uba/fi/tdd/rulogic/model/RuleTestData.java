@@ -11,6 +11,7 @@ public final class RuleTestData {
   public static final Rule RULE = rule();
 
   public static final String INVALID_RULE_STRING = "hijo(X) :- varon(Y).";
+  public static final Rule INVALID_RULE = invalidRule();
 
   private static Rule rule() {
     String name = "hijo";
@@ -18,6 +19,14 @@ public final class RuleTestData {
     ImmutableSet<Statement> statements = ImmutableSet.of(
         Fact.builder().name("varon").parameters(ImmutableList.of("X")).build(),
         Fact.builder().name("padre").parameters(ImmutableList.of("Y", "X")).build());
+    return Rule.builder().name(name).parameters(parameters).statements(statements).build();
+  }
+
+  private static Rule invalidRule() {
+    String name = "hijo";
+    ImmutableList<String> parameters = ImmutableList.of("X");
+    ImmutableSet<Statement> statements =
+        ImmutableSet.of(Fact.builder().name("varon").parameters(ImmutableList.of("Y")).build());
     return Rule.builder().name(name).parameters(parameters).statements(statements).build();
   }
 
