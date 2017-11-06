@@ -12,8 +12,6 @@ import ar.uba.fi.tdd.rulogic.parser.QueryParserImpl;
 import ar.uba.fi.tdd.rulogic.parser.RuleParser;
 import ar.uba.fi.tdd.rulogic.parser.RuleParserImpl;
 import ar.uba.fi.tdd.rulogic.parser.StatementParserImpl;
-import ar.uba.fi.tdd.rulogic.parser.Validator;
-import ar.uba.fi.tdd.rulogic.validator.FactValidatorImpl;
 
 public class ParentDatabaseTest {
 
@@ -23,8 +21,7 @@ public class ParentDatabaseTest {
 
   @Before
   public void setUp() throws Exception {
-    Validator factValidator = new FactValidatorImpl();
-    FactParser factParser = new FactParserImpl(factValidator);
+    FactParser factParser = new FactParserImpl();
     RuleParser ruleParser = new RuleParserImpl();
     StatementParser statementParser = new StatementParserImpl(factParser, ruleParser);
     DatabaseReader databaseReader = new DatabaseReaderImpl(statementParser);
