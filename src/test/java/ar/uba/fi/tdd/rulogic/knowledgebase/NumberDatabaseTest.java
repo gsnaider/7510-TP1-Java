@@ -15,6 +15,7 @@ import ar.uba.fi.tdd.rulogic.parser.RuleValidator;
 import ar.uba.fi.tdd.rulogic.parser.StatementParserImpl;
 import ar.uba.fi.tdd.rulogic.parser.Validator;
 import ar.uba.fi.tdd.rulogic.validator.FactValidator;
+import ar.uba.fi.tdd.rulogic.validator.QueryValidator;
 import ar.uba.fi.tdd.rulogic.validator.RuleValidatorImpl;
 
 public class NumberDatabaseTest {
@@ -31,8 +32,9 @@ public class NumberDatabaseTest {
     RuleParser ruleParser = new RuleParserImpl(ruleValidator);
     StatementParser statementParser = new StatementParserImpl(factParser, ruleParser);
     DatabaseReader databaseReader = new DatabaseReaderImpl(statementParser);
-    knowledgeBase =
-        new KnowledgeBase(databaseReader.readDatabase(NUMBER_DATABASE_PATH), new QueryParserImpl());
+    Validator<String> queryValidator = new QueryValidator();
+    knowledgeBase = new KnowledgeBase(databaseReader.readDatabase(NUMBER_DATABASE_PATH),
+        new QueryParserImpl(queryValidator));
   }
 
   @Test
