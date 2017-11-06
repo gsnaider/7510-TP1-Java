@@ -5,6 +5,8 @@ import ar.uba.fi.tdd.rulogic.model.Statement;
 
 public class StatementParserImpl implements StatementParser {
 
+  private static final String RULE_ASSIGN_CODE = ":-";
+
   private final FactParser factParser;
   private final RuleParser ruleParser;
 
@@ -15,8 +17,11 @@ public class StatementParserImpl implements StatementParser {
 
   @Override
   public Statement parseStatement(String statementLine) {
-    // TODO Auto-generated method stub
-    return null;
+    if (statementLine.contains(RULE_ASSIGN_CODE)) {
+      return ruleParser.parseRule(statementLine);
+    } else {
+      return factParser.parseFact(statementLine);
+    }
   }
 
 }

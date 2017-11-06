@@ -71,7 +71,7 @@ public class StatementParserTest {
   @Test
   public void testParseStatement_InvalidRule_ThrowsIllegalArgumentException() {
     Exception expectedException = new IllegalArgumentException("Invalid rule: hijo(X) :- varon(Y)");
-    when(factParser.parseFact(anyString())).thenThrow(expectedException);
+    when(ruleParser.parseRule(anyString())).thenThrow(expectedException);
 
     Throwable thrown = catchThrowable(() -> {
       statementParser.parseStatement(RuleTestData.INVALID_RULE_STRING);
