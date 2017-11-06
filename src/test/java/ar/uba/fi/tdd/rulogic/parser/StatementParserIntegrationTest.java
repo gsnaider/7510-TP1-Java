@@ -11,6 +11,7 @@ import ar.uba.fi.tdd.rulogic.model.Rule;
 import ar.uba.fi.tdd.rulogic.model.RuleTestData;
 import ar.uba.fi.tdd.rulogic.model.Statement;
 import ar.uba.fi.tdd.rulogic.validator.FactValidator;
+import ar.uba.fi.tdd.rulogic.validator.RuleValidatorImpl;
 
 public class StatementParserIntegrationTest {
 
@@ -20,7 +21,8 @@ public class StatementParserIntegrationTest {
   public void setUp() {
     Validator<String> factValidator = new FactValidator();
     FactParser factParser = new FactParserImpl(factValidator);
-    RuleParser ruleParser = new RuleParserImpl();
+    RuleValidator ruleValidator = new RuleValidatorImpl();
+    RuleParser ruleParser = new RuleParserImpl(ruleValidator);
     statementParser = new StatementParserImpl(factParser, ruleParser);
   }
 

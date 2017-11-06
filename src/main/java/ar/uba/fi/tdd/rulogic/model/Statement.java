@@ -6,7 +6,7 @@ import com.google.gson.GsonBuilder;
 /**
  * Entity represented by a name and one or more parameters.
  */
-public abstract class Statement {
+public class Statement {
 
   private final String name;
   private final ImmutableList<String> parameters;
@@ -46,7 +46,7 @@ public abstract class Statement {
       return true;
     if (obj == null)
       return false;
-    if (getClass() != obj.getClass())
+    if (!(obj instanceof Statement))
       return false;
     Statement other = (Statement) obj;
     if (name == null) {
