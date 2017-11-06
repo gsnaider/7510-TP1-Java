@@ -7,8 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import ar.uba.fi.tdd.rulogic.databasereader.DatabaseReaderImpl;
-import ar.uba.fi.tdd.rulogic.databasereader.StatementParser;
 import ar.uba.fi.tdd.rulogic.knowledgebase.Database;
 import ar.uba.fi.tdd.rulogic.knowledgebase.DatabaseReader;
 import ar.uba.fi.tdd.rulogic.knowledgebase.IllegalDatabaseFormatException;
@@ -49,21 +47,21 @@ public class DatabaseReaderTest {
   @Test
   public void testReadDatabase_DatabaseWithInvalidRule_ThrowsIllegalDatabaseFormatException() {
     when(statementParser.parseStatement(RuleTestData.RULE_STRING))
-        .thenThrow(new IllegalArgumentException("Invalid rule hijo(X) :- varon(Y)"));
+        .thenThrow(new IllegalArgumentException("Invalid rule: hijo(X) :- varon(Y)"));
 
     assertThatExceptionOfType(IllegalDatabaseFormatException.class).isThrownBy(() -> {
       databaseReader.readDatabase(DatabaseTestData.SMALL_DATABASE_PATH);
-    }).withMessage("Error parsing database: Invalid rule hijo(X) :- varon(Y)");
+    }).withMessage("Error parsing database: Invalid rule: hijo(X) :- varon(Y)");
   }
 
   @Test
   public void testReadDatabase_DatabaseWithInvalidFact_ThrowsIllegalDatabaseFormatException() {
     when(statementParser.parseStatement(FactTestData.FACT_1_STRING))
-        .thenThrow(new IllegalArgumentException("Invalid fact varon"));
+        .thenThrow(new IllegalArgumentException("Invalid fact: varon"));
 
     assertThatExceptionOfType(IllegalDatabaseFormatException.class).isThrownBy(() -> {
       databaseReader.readDatabase(DatabaseTestData.SMALL_DATABASE_PATH);
-    }).withMessage("Error parsing database: Invalid fact varon");
+    }).withMessage("Error parsing database: Invalid fact: varon");
   }
 
 }
