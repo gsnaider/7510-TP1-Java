@@ -14,9 +14,11 @@ import ar.uba.fi.tdd.rulogic.parser.FactParser;
 import ar.uba.fi.tdd.rulogic.parser.FactParserImpl;
 import ar.uba.fi.tdd.rulogic.parser.RuleParser;
 import ar.uba.fi.tdd.rulogic.parser.RuleParserImpl;
+import ar.uba.fi.tdd.rulogic.parser.RuleValidator;
 import ar.uba.fi.tdd.rulogic.parser.StatementParserImpl;
 import ar.uba.fi.tdd.rulogic.parser.Validator;
 import ar.uba.fi.tdd.rulogic.validator.FactValidator;
+import ar.uba.fi.tdd.rulogic.validator.RuleValidatorImpl;
 
 public class DatabaseReaderIntegrationTest {
 
@@ -26,7 +28,8 @@ public class DatabaseReaderIntegrationTest {
   public void setUp() {
     Validator<String> factValidator = new FactValidator();
     FactParser factParser = new FactParserImpl(factValidator);
-    RuleParser ruleParser = new RuleParserImpl();
+    RuleValidator ruleValidator = new RuleValidatorImpl();
+    RuleParser ruleParser = new RuleParserImpl(ruleValidator);
     StatementParser statementParser = new StatementParserImpl(factParser, ruleParser);
     databaseReader = new DatabaseReaderImpl(statementParser);
   }
