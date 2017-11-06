@@ -94,4 +94,6 @@ local.properties
 .scala_dependencies
 .worksheet
 
+
 git-log.sh
+open-coverage-report.sh
