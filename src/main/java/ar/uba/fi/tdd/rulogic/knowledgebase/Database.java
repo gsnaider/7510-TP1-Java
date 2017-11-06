@@ -1,9 +1,9 @@
 package ar.uba.fi.tdd.rulogic.knowledgebase;
 
-import ar.uba.fi.tdd.rulogic.model.Query;
+import ar.uba.fi.tdd.rulogic.model.Statement;
 
 public interface Database {
 
-  boolean contains(Query query);
+  boolean contains(Statement statement);
 
 }

@@ -29,6 +29,8 @@ public class DatabaseReaderTest {
         .thenReturn(FactTestData.FACT_1);
     when(statementParser.parseStatement(FactTestData.FACT_2_STRING))
         .thenReturn(FactTestData.FACT_2);
+    when(statementParser.parseStatement(FactTestData.FACT_3_STRING))
+        .thenReturn(FactTestData.FACT_3);
     when(statementParser.parseStatement(RuleTestData.RULE_STRING)).thenReturn(RuleTestData.RULE);
   }
 

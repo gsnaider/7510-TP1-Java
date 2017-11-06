@@ -1,7 +1,9 @@
 package ar.uba.fi.tdd.rulogic.model;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.GsonBuilder;
@@ -25,9 +27,57 @@ public final class DatabaseImpl implements Database {
   }
 
   @Override
-  public boolean contains(Query query) {
-    // TODO implement.
-    return false;
+  public boolean contains(Statement statement) {
+    if (statements.contains(statement)) {
+      return true;
+    } else {
+      return containsRule(statement);
+    }
+  }
+
+  private boolean containsRule(Statement statement) {
+    Rule rule = findRule(statement);
+    if (rule == null) {
+      return false;
+    }
+    return containsRuleStatements(rule, statement);
+  }
+
+  private boolean containsRuleStatements(Rule rule, Statement statement) {
+    ImmutableMap<String, String> parametersMap = getRuleParametersMap(rule, statement);
+    for (Statement ruleStatement : rule.getStatements()) {
+      ImmutableList.Builder<String> statementReplacedParametersBuilder = ImmutableList.builder();
+      for (String parameter : ruleStatement.getParameters()) {
+        statementReplacedParametersBuilder.add(parametersMap.get(parameter));
+      }
+      Statement statementWithReplacedParameters =
+          new Statement(ruleStatement.getName(), statementReplacedParametersBuilder.build());
+      if (!contains(statementWithReplacedParameters)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private ImmutableMap<String, String> getRuleParametersMap(Rule rule, Statement statement) {
+    ImmutableMap.Builder<String, String> parametersMapBuilder = ImmutableMap.builder();
+    Iterator<String> ruleParametersIterator = rule.getParameters().iterator();
+    Iterator<String> queryParametersIterator = statement.getParameters().iterator();
+    while (ruleParametersIterator.hasNext() && queryParametersIterator.hasNext()) {
+      parametersMapBuilder.put(ruleParametersIterator.next(), queryParametersIterator.next());
+    }
+    return parametersMapBuilder.build();
+  }
+
+  private Rule findRule(Statement statement) {
+    if (!rules.containsKey(statement.getName())) {
+      return null;
+    }
+    Rule rule = rules.get(statement.getName());
+    if (rule.getParameters().size() != statement.getParameters().size()) {
+      return null;
+    }
+    return rule;
   }
 
   public static Builder builder() {

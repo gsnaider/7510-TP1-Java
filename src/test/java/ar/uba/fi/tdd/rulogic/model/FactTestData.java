@@ -15,6 +15,10 @@ public final class FactTestData {
   public static final Fact FACT_2 =
       Fact.builder().name("padre").parameters(ImmutableList.of("juan", "pepe")).build();
 
+  public static final String FACT_3_STRING = "varon(pepe).";
+  public static final Fact FACT_3 =
+      Fact.builder().name("varon").parameters(ImmutableList.of("pepe")).build();
+
   public static final String INVALID_FACT_STRING = "varon.";
 
 }
