@@ -5,12 +5,17 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import org.junit.Before;
 import org.junit.Test;
 import ar.uba.fi.tdd.rulogic.databasereader.DatabaseReaderImpl;
+import ar.uba.fi.tdd.rulogic.databasereader.StatementParser;
 import ar.uba.fi.tdd.rulogic.knowledgebase.Database;
 import ar.uba.fi.tdd.rulogic.knowledgebase.DatabaseReader;
 import ar.uba.fi.tdd.rulogic.knowledgebase.IllegalDatabaseFormatException;
 import ar.uba.fi.tdd.rulogic.model.DatabaseTestData;
 import ar.uba.fi.tdd.rulogic.model.FactTestData;
 import ar.uba.fi.tdd.rulogic.model.RuleTestData;
+import ar.uba.fi.tdd.rulogic.parser.FactParser;
+import ar.uba.fi.tdd.rulogic.parser.FactParserImpl;
+import ar.uba.fi.tdd.rulogic.parser.RuleParser;
+import ar.uba.fi.tdd.rulogic.parser.RuleParserImpl;
 import ar.uba.fi.tdd.rulogic.parser.StatementParserImpl;
 
 public class DatabaseReaderIntegrationTest {
@@ -19,7 +24,10 @@ public class DatabaseReaderIntegrationTest {
 
   @Before
   public void setUp() {
-    databaseReader = new DatabaseReaderImpl(new StatementParserImpl());
+    FactParser factParser = new FactParserImpl();
+    RuleParser ruleParser = new RuleParserImpl();
+    StatementParser statementParser = new StatementParserImpl(factParser, ruleParser);
+    databaseReader = new DatabaseReaderImpl(statementParser);
   }
 
   @Test
